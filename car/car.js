@@ -1,58 +1,63 @@
 var five = require("johnny-five");
 
-function Car(boardConfig) {
-  var motorL;
-  var motorR;
-  var speeds = [0, 64, 128, 194, 255];
-  var speed = 0;
-  var isTurning = false;
+var states = {
+  forward: 'F',
+  reverse: 'R',
+  left: 'L',
+  right: 'R',
+  stop: 'S'
+}
 
-  function onReady(callback) {
-    var board = new five.Board(boardConfig);
-    board.on("ready", function() {
-      var configs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
-      motorL = new five.Motor(configs.M1);
-      motorR = new five.Motor(configs.M2);
-
-      callback();
-    });
-  }
+function Car() {
+  var configs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
+  var motorL = new five.Motor(configs.M1);
+  var motorR = new five.Motor(configs.M2);
+  var speed = 164;
+  var state = states.stop;
 
   function forward() {
-    if (isTurning) {
-      motorL.forward();
-      motorR.forward();
-      isTurning = false;
-    } else {
-      if (speed < speeds.length) {
-        speed++;
-        motorL.forward(speeds[speed]);
-        motorR.forward(speeds[speed]);
-      }
+    if (state != states.forward) {
+      state = states.forward;
+      motorL.forward(speed);
+      motorR.forward(speed);
+    }
+  }
+
+  function reverse() {
+    if (state != states.reverse) {
+      state = states.reverse;
+      motorL.reverse(speed);
+      motorR.reverse(speed);
     }
   }
 
   function stop() {
-    speed = 0;
-    motorL.stop();
-    motorR.stop();
+    if (state != states.stop) {
+      state = states.stop;
+      motorL.stop();
+      motorR.stop();
+    }
   }
 
   function left() {
-    isTurning = true;
-    motorL.forward();
-    motorR.reverse();
+    if (state != states.left) {
+      state = states.left;
+      motorL.forward(speed);
+      motorR.reverse(speed);
+    }
   }
 
   function right() {
-    isTurning = true;
-    motorL.reverse();
-    motorR.forward();
+    if (state != states.right) {
+      state = states.right;
+      motorL.reverse(speed);
+      motorR.forward(speed);
+    }
   }
 
   return {
-    onReady: onReady,
     forward: forward,
+    reverse: reverse,
     stop: stop,
     left: left,
     right: right

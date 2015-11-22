@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "johnny-five": "^0.9.2",
-    "keypress": "^0.2.1"
+    "keypress": "^0.2.1",
+    "temporal": "^0.5.0"
   }
 }
