@@ -7,9 +7,10 @@ var factory = new Factory({
 var commander = new Commander();
 
 factory.onReady(function() {
-  var car = factory.buildCar();
+  var car = factory.buildCarWithAutoPilot();
 
   commander.listen({
+    'a': function() { car.start(); },
     'up': function() { car.forward(); },
     'down': function() { car.reverse(); },
     'left': function() { car.left(); },

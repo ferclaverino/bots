@@ -4,7 +4,7 @@
   "description": "",
   "main": "command.js",
   "scripts": {
-    "start": "node command.js",
+    "start": "node runAutoPilot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

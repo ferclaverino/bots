@@ -1,4 +1,5 @@
 var five = require("johnny-five");
+var temporal = require("temporal");
 
 var states = {
   forward: 'F',
@@ -10,24 +11,56 @@ var states = {
 
 function Car() {
   var configs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
-  var motorL = new five.Motor(configs.M1);
-  var motorR = new five.Motor(configs.M2);
+  var motorL = new five.Motor(configs.M2);
+  var motorR = new five.Motor(configs.M1);
   var speed = 164;
+  var speedL = speed;
+  var speedR = speed - 4;
   var state = states.stop;
+
+  function getGradient(max, steps) {
+    var gradient = [];
+    for (var i = 1; i <= steps; i++) {
+      gradient.push(max * i / steps);
+    }
+    return gradient;
+  }
+
+  function applyGradient(gradient, motor, delay) {
+    temporal.queue(gradient.map(function(speed) {
+      return {
+        delay: delay, task: function() {
+          motor.forward(speed);
+        }
+      };
+    }));
+  }
 
   function forward() {
     if (state != states.forward) {
       state = states.forward;
-      motorL.forward(speed);
-      motorR.forward(speed);
+      motorL.forward(speedL);
+      motorR.forward(speedR);
+    }
+  }
+
+  function forwardGradual(steps, callback) {
+    if (state != states.forward) {
+      state = states.forward;
+      var delay = 100;
+      var gradientL = getGradient(speedL, steps);
+      var gradientR = getGradient(speedR, steps);
+      applyGradient(gradientL, motorL, delay);
+      applyGradient(gradientR, motorR, delay);
+      temporal.wait(delay * (steps + 1), callback);
     }
   }
 
   function reverse() {
     if (state != states.reverse) {
       state = states.reverse;
-      motorL.reverse(speed);
-      motorR.reverse(speed);
+      motorL.reverse(speedL);
+      motorR.reverse(speedR);
     }
   }
 
@@ -42,21 +75,22 @@ function Car() {
   function left() {
     if (state != states.left) {
       state = states.left;
-      motorL.forward(speed);
-      motorR.reverse(speed);
+      motorL.reverse(speedL);
+      motorR.forward(speedR);
     }
   }
 
   function right() {
     if (state != states.right) {
       state = states.right;
-      motorL.reverse(speed);
-      motorR.forward(speed);
+      motorL.forward(speedL);
+      motorR.reverse(speedR);
     }
   }
 
   return {
     forward: forward,
+    forwardGradual: forwardGradual,
     reverse: reverse,
     stop: stop,
     left: left,
