@@ -17,11 +17,12 @@ var five = require("johnny-five"),
     temporal = require("temporal");
 
 // Delta Geometry - put your measurements here!
-var e = 80.25,
+var //e = 80.25,
+    e = 25,
     //f = 163,
-    f = 130,
+    f = 64 * 2,
     //re = 155,
-    re = 175,
+    re = 238,
     //rf = 128.75;
     rf = 105;
 
@@ -74,7 +75,7 @@ function inverse(x0, y0, z0) {
 
 
 var board = new five.Board({
-  // port: "/dev/rfcomm0"
+  port: "/dev/rfcomm0"
 });
 
 board.on("ready", function() {
@@ -104,20 +105,20 @@ board.on("ready", function() {
     function box() {
       var delay = 1000;
       temporal.queue([
-        { delay: delay, task: function() { go( 30,  30, -160, delay); } },
-        { delay: delay, task: function() { go( 30, -30, -160, delay); } },
-        { delay: delay, task: function() { go(-30, -30, -160, delay); } },
-        { delay: delay, task: function() { go(-30,  30, -160, delay); } },
-        { delay: delay, task: function() { go( 30,  30, -160, delay); } }
+        { delay: delay, task: function() { go( 30,  30, -260, delay); } },
+        { delay: delay, task: function() { go( 30, -30, -260, delay); } },
+        { delay: delay, task: function() { go(-30, -30, -260, delay); } },
+        { delay: delay, task: function() { go(-30,  30, -260, delay); } },
+        { delay: delay, task: function() { go( 30,  30, -260, delay); } }
       ]);
     }
 
     function hi() {
-      var delay = 500;
+      var delay = 1000;
       temporal.queue([
-        { delay: delay, task: function() { go( 30,  30, -100, delay); } },
-        { delay: delay, task: function() { go( 30, 30, -200, delay); } },
-        { delay: delay, task: function() { go( 30,  30, -100, delay); } },
+        { delay: delay, task: function() { go( 0,  0, -220, delay); } },
+        { delay: delay, task: function() { go( 0, 0, -320, delay); } },
+        { delay: delay, task: function() { go( 0,  0, -220, delay); } },
 
       ]);
     }
@@ -129,6 +130,6 @@ board.on("ready", function() {
     });
 
     // Initial position
-    go(0,0,-150);
+    go(0,0,-220);
 
 });
