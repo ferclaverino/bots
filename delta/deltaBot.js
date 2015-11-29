@@ -1,7 +1,11 @@
 var five = require("johnny-five");
-var temporal = require("temporal");
 
-function DeltaBot(deltaModel) {
+function DeltaBot(deltaModel, height) {
+  height = height || 50;
+  var Z = {
+    min: 220
+  };
+  Z.max = Z.min + height
 
   // Setup
   var servo1 = five.Servo({
@@ -17,12 +21,13 @@ function DeltaBot(deltaModel) {
       range: [0, 90]
   });
 
-  var Z = {
-    min: -220,
-    max: -320,
-  };
+  function mapRange(value, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+  }
 
-  function go(x, y, z, ms) {
+  function go(x, y, inverseZ, ms) {
+    var z = mapRange(height - inverseZ, 0, height, Z.min, Z.max) * -1;
+    console.log(inverseZ, z)
     var angles = deltaModel.inverse(x, y, z);
     servo1.to(angles[1], ms);
     servo2.to(angles[2], ms);
@@ -30,40 +35,8 @@ function DeltaBot(deltaModel) {
     console.log(angles);
   };
 
-  function box(l, z) {
-    l = l || 50;
-    z = z || -250;
-    var delay = 1000;
-    temporal.queue([
-      { delay: delay, task: function() { go( l,  l, z, delay); } },
-      { delay: delay, task: function() { go( l, -l, z, delay); } },
-      { delay: delay, task: function() { go(-l, -l, z, delay); } },
-      { delay: delay, task: function() { go(-l,  l, z, delay); } },
-      { delay: delay, task: function() { go( l,  l, z, delay); } }
-    ]);
-  }
-
-  function hi(z) {
-    z = z || Z.max;
-    var delay = 500;
-    temporal.queue([
-      { delay: delay, task: function() { go( 0,  0, Z.min, delay); } },
-      { delay: delay, task: function() { go( 0, 0, z, delay); } },
-      { delay: delay, task: function() { go( 0,  0, Z.min, delay); } },
-
-    ]);
-  }
-
-  function init() {
-    // Initial position
-    go(0, 0, Z.min);
-  }
-
   return {
-    go: go,
-    box: box,
-    hi: hi,
-    init: init
+    go: go
   };
 }
 
