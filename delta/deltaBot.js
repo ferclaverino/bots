@@ -1,9 +1,10 @@
 var five = require("johnny-five");
 
-function DeltaBot(deltaModel, height) {
+function DeltaBot(deltaModel, Zmin, height) {
   height = height || 50;
+  Zmin = Zmin || 150;
   var Z = {
-    min: 220
+    min: Zmin
   };
   Z.max = Z.min + height
 
@@ -21,13 +22,17 @@ function DeltaBot(deltaModel, height) {
       range: [0, 90]
   });
 
+  // Initialize position
+  servo1.to(20);
+  servo2.to(20);
+  servo3.to(20);
+
   function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
   }
 
   function go(x, y, inverseZ, ms) {
     var z = mapRange(height - inverseZ, 0, height, Z.min, Z.max) * -1;
-    console.log(inverseZ, z)
     var angles = deltaModel.inverse(x, y, z);
     servo1.to(angles[1], ms);
     servo2.to(angles[2], ms);
@@ -35,8 +40,16 @@ function DeltaBot(deltaModel, height) {
     console.log(angles);
   };
 
+  function to(angle1, angle2, angle3, ms) {
+    ms = ms || 500;
+    servo1.to(angle1, ms);
+    servo2.to(angle2, ms);
+    servo3.to(angle3, ms);
+  }
+
   return {
-    go: go
+    go: go,
+    to: to
   };
 }
 

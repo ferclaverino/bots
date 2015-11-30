@@ -12,14 +12,15 @@ var //e = 80.25,
     //f = 163,
     f = 64 * 2,
     //re = 155,
-    re = 238,
+    re = 165,
     //rf = 128.75;
     rf = 105;
-var height = 70;
+var Zmin = 120;
+var height = 30;
 var deltaModel = new DeltaModel(e, f, re, rf);
 
 board.on('ready', function() {
-  var deltaBot = new DeltaBot(deltaModel, height);
+  var deltaBot = new DeltaBot(deltaModel, Zmin, height);
   var drawBot = new DrawBot(deltaBot, height);
   board.repl.inject({
     d: drawBot,
