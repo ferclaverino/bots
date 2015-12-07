@@ -27,7 +27,7 @@ void RadioFrequency::begin() {
     
 }
 
-bool RadioFrequency::write(dataStruct data) {
+bool RadioFrequency::write(commandStruct data) {
   _radio.stopListening();
   return _radio.write( &data, sizeof(data) );
 }
@@ -37,6 +37,6 @@ bool RadioFrequency::available() {
   return _radio.available();
 }
 
-void RadioFrequency::read(dataStruct *data) {
+void RadioFrequency::read(commandStruct *data) {
   _radio.read( data, sizeof(*data) );
 }

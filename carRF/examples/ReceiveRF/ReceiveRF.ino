@@ -1,25 +1,23 @@
 #include "RadioFrequency.h"
 
 RadioFrequency radioFrequency(0, 7, 8);
-dataStruct myData;
+commandStruct command;
 
 void setup() {
-
-  Serial.begin(115200);  
+  Serial.begin(9600);
   radioFrequency.begin();
 }
 
 
 void loop() {
-    
   if( radioFrequency.available()) {
-     
-    radioFrequency.read(&myData);
-    
+    radioFrequency.read(&command);
+
     Serial.print(F("Sent response "));
-    Serial.print(myData.x);
+    Serial.print(command.x);
     Serial.print(F(" , "));
-    Serial.println(myData.y);
-    
+    Serial.println(command.y);
   }
-} // Loop
+
+  delay(100);
+}

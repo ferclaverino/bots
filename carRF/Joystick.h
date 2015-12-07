@@ -8,8 +8,10 @@ class Joystick
   public:
     Joystick(int xPin, int yPin, int delta);
     bool available();
-    int readX();
-    int readY();
+    float readX();
+    float readY();
+    float readAngle();
+    float readForce();
   private:
     int _xPin;
     int _yPin;
@@ -17,6 +19,7 @@ class Joystick
     int _xValue = 0;
     int _yValue = 0;
     bool inDelta(int value1, int value2);
+    float mapToUnit(int value);
 };
 
 #endif

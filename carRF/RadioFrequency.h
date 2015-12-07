@@ -5,9 +5,11 @@
 #include <SPI.h>
 #include "RF24.h"
 
-struct dataStruct {
-  int x;
-  int y;
+struct commandStruct {
+  float x;
+  float y;
+  float angle;
+  float force;  
 };
 
 class RadioFrequency
@@ -15,9 +17,9 @@ class RadioFrequency
   public:
     RadioFrequency(bool radioNumber, int cePin, int csnPin);
     void begin();
-    bool write(dataStruct data);
+    bool write(commandStruct data);
     bool available();
-    void read(dataStruct *data);
+    void read(commandStruct *data);
   private:
     byte _addresses[2][6] = {"1Node","2Node"};
     bool _radioNumber;

@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "math.h"
 #include "Joystick.h"
 
 Joystick::Joystick(int xPin, int yPin, int delta)
@@ -12,7 +13,7 @@ bool Joystick::inDelta(int value1, int value2) {
   if (value1 > value2) {
     return (value1 - value2 < _delta);
   } else {
-    return (value2 - value1 < _delta);   
+    return (value2 - value1 < _delta);
   }
 }
 
@@ -34,10 +35,25 @@ bool Joystick::available() {
   return isAvailable;
 }
 
-int Joystick::readX() {
-  return _xValue;
+float Joystick::mapToUnit(int value) {
+  int mapTo100 = map(value, 0, 1023, -100, 100);
+  return (float) mapTo100 / 100.0;
 }
 
-int Joystick::readY() {
-  return _yValue;
+float Joystick::readX() {
+  return mapToUnit(_xValue);
+}
+
+float Joystick::readY() {
+  return mapToUnit(_yValue);
+}
+
+float Joystick::readAngle() {
+  return atan2 (readY(), readX());
+}
+
+float Joystick::readForce() {
+  float x = readX();
+  float y = readY();
+  return sqrt(x * x + y * y);
 }
