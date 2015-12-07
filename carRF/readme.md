@@ -1,7 +1,7 @@
 Car controled by radio frequency
 ---
 
-[Video](https://www.youtube.com/edit?o=U&video_id=7gSJ1tfk2jw)
+[Video](https://www.youtube.com/watch?v=7gSJ1tfk2jw)
 
 ![remote control](https://raw.github.com/ferclaverino/bots/master/carRF/images/remoteControl.JPG)
 
