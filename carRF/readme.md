@@ -1,4 +1,4 @@
-Car controled by radio frequency
+2 ruedas + arduino + RF = Autito a control remoto
 ---
 
 [Video](https://www.youtube.com/watch?v=7gSJ1tfk2jw)
