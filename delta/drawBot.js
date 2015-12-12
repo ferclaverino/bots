@@ -1,7 +1,7 @@
 var temporal = require("temporal");
 
 function DrawBot(deltaBot, height) {
-  var delay = 1000;
+  var delay = 500;
 
   function go(x, y, z) {
     deltaBot.go(x, y , z, delay)
@@ -52,7 +52,7 @@ function DrawBot(deltaBot, height) {
   function circle(r) {
     r = r || 20;
     var points = [];
-    for (var angle = 0; angle < 360; angle = angle + 10) {
+    for (var angle = 0; angle <= 360; angle = angle + 10) {
       x = r * Math.cos(angle * Math.PI / 180);
       y = r * Math.sin(angle * Math.PI / 180);
       points.push({x: x, y: y});
@@ -69,7 +69,7 @@ function DrawBot(deltaBot, height) {
 
     setTimeout(function() {
       circle(30);
-    }, delay * 10);
+    }, delay * 15);
   }
 
   return {
