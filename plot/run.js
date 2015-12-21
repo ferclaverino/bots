@@ -8,7 +8,7 @@ var board = new five.Board({
 var plotModel = new PlotModel();
 
 board.on('ready', function() {
-  var plotBot = new PlotBot(plotModel);
+  var plotBot = new PlotBot(plotModel, 4, 3, 20, 28);
   board.repl.inject({
     p: plotBot
   });
