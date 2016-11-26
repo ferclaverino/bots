@@ -15,6 +15,7 @@ class Car
     void forward();
     void backward();
     void turnLeft();
+    void turnRight();
     void stop();
     void setSpeedL(float speed);
     void setSpeedR(float speed);

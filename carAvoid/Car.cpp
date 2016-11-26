@@ -38,6 +38,12 @@ void Car::turnLeft() {
   setSpeedR(turnSpeed * -1);
 }
 
+void Car::turnRight() {
+  float turnSpeed = _speed * 1;
+  setSpeedL(turnSpeed * -1);
+  setSpeedR(turnSpeed);
+}
+
 void Car::stop() {
   setSpeedL(0);
   setSpeedR(0);

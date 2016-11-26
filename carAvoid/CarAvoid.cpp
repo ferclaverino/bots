@@ -9,6 +9,7 @@ CarAvoid::CarAvoid(Car *car, Sonar *sonar) {
 
 void CarAvoid::tick() {
   int distance = _sonar->getDistanceInCm();
+  int wait = 500;
   Serial.print("distance: ");
   Serial.print(distance);
   Serial.println("cm");
@@ -19,22 +20,22 @@ void CarAvoid::tick() {
   } else if (distance != 0) {
     Serial.println("stop");
     _car->stop();
-    delay(500);
+    delay(wait);
 
     Serial.println("backward");
     _car->backward();
-    delay(500);
+    delay(wait);
 
     _car->stop();
-    delay(500);
+    delay(wait);
 
     Serial.println("turnleft");
     _car->turnLeft();
-    delay(500);
+    delay(wait);
 
     Serial.println("stop");
     _car->stop();
-    delay(500);
+    delay(wait);
 
     Serial.println("move forward");
     _car->forward();
