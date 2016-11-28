@@ -16,8 +16,8 @@ board.on('ready', function() {
   var configs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
   var motorL = new five.Motor(configs.M2);
   var motorR = new five.Motor(configs.M1);
-  // set half speed
-  var speed = 255/2;
+  // set 80% speed
+  var speed = 255 * 0.8;
 
   process.stdin.on('keypress', function(ch, key) {
     if (!key) {
@@ -52,5 +52,5 @@ board.on('ready', function() {
     motorL.stop();
     motorR.stop();
   });
-  
+
 });
