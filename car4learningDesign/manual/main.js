@@ -14,7 +14,7 @@ board.on('ready', () => {
   // set 80% speed
   const speed = 255 * 0.8;
 
-  const keyboardInvoker = new KeyboardInvoker({
+  const commands = {
     'q': () => process.exit(),
     'up': () => {
       motorL.forward(speed);
@@ -37,7 +37,8 @@ board.on('ready', () => {
       motorL.stop();
       motorR.stop();
     }
-  });
+  };
+  const keyboardInvoker = new KeyboardInvoker(commands);
 
   keyboardInvoker.listen();
 
