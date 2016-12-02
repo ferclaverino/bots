@@ -11,11 +11,11 @@ class KeyboardInvoker {
 
   listen() {
     process.stdin.on('keypress', (ch, key) => {
-      this.call(key.name);
+      this.execute(key.name);
     })
   }
 
-  call(commandName) {
+  execute(commandName) {
     if (this.commands[commandName]) {
       this.commands[commandName]();
     }
