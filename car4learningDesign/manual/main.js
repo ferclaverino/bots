@@ -1,10 +1,10 @@
-var five = require("johnny-five");
-var temporal = require("temporal");
-var keypress = require('keypress');
+const { Board, Motor } = require('johnny-five');
+const keypress = require('keypress');
 
-var board = new five.Board({
-  port: "/dev/rfcomm0",
-  repl: false
+const board = new Board({
+  port: '/dev/rfcomm0',
+  repl: false,
+  debug: true,
 });
 
 keypress(process.stdin);
@@ -12,14 +12,14 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.setRawMode(true);
 
-board.on('ready', function() {
-  var configs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
-  var motorL = new five.Motor(configs.M2);
-  var motorR = new five.Motor(configs.M1);
+board.on('ready', () => {
+  const configs = Motor.SHIELD_CONFIGS.ADAFRUIT_V2;
+  const motorL = new Motor(configs.M2);
+  const motorR = new Motor(configs.M1);
   // set 80% speed
-  var speed = 255 * 0.8;
+  const speed = 255 * 0.8;
 
-  process.stdin.on('keypress', function(ch, key) {
+  process.stdin.on('keypress', (ch, key) => {
     if (!key) {
       return;
     } else if (key.name === 'q') {
@@ -47,7 +47,7 @@ board.on('ready', function() {
     }
   });
 
-  this.on("exit", function() {
+  board.on('exit', () => {
     // stop
     motorL.stop();
     motorR.stop();
