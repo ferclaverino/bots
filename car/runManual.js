@@ -2,7 +2,7 @@ var Factory = require('./factory.js');
 var Commander = require('./commander.js');
 
 var factory = new Factory({
-   port: '/dev/rfcomm0'
+  //  port: '/dev/rfcomm0'
 });
 var commander = new Commander();
 
