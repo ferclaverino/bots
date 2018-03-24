@@ -24,4 +24,4 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.get(/leds/, ledsEndPoint);
 app.get(/car/, (req, res) => carEndPoint(req, res, carBot));
 
-app.listen(80, () => console.log('Example app listening on port 80!'));
+app.listen(80);

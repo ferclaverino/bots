@@ -12,12 +12,10 @@ function toggleLed (event) {
   var statusNode = button.parentNode.querySelector('.led-status'); // The sibling status <span> to update
 
   fetch('/leds/' + ledIndex)
-     .then((response) => response.json())
-     .then((response) => {
-       statusNode.textContent = response.on ? 'ON' : 'OFF';
-     }).catch((e) => {
-       console.log('Error', e); // If something went wrong, log that event to the console.
-     });;
+    .then((response) => response.json())
+    .then((response) => {
+      statusNode.textContent = response.on ? 'ON' : 'OFF';
+    });
 }
 
 function moveCar (event) {
