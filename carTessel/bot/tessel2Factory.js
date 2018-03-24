@@ -15,11 +15,11 @@ class Tessel2Factory {
   }
 
   buildMotorL() {
-    return Motor([ 'a5', 'a4', 'a3' ]);
+    return Motor([ 'b5', 'b4', 'b3' ]);
   }
 
   buildMotorR() {
-    return Motor([ 'b5', 'b4', 'b3' ]);
+    return Motor([ 'a5', 'a4', 'a3' ]);
   }
 
   buildCar() {
