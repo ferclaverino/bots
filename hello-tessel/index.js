@@ -1,5 +1,7 @@
+'use strict';
+
 // Import the interface to Tessel hardware
-var tessel = require('tessel');
+const tessel = require('tessel');
 
 // Turn one of the LEDs on to start.
 tessel.led[2].on();
