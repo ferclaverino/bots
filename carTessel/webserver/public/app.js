@@ -4,6 +4,7 @@ function init() {
   $('.led-button').bind('click', toggleLed);
   $('.car-button').bind('vmousedown', moveCar);
   $('.car-button').bind('vmouseup', stopCar);
+  $('#speed').bind('change', setSeed);
 }
 
 function toggleLed (event) {
@@ -21,9 +22,14 @@ function toggleLed (event) {
 function moveCar (event) {
   var button = event.target;
   var direction = button.getAttribute('data-direction');
-  fetch('/car/' + direction);
+  fetch('/move/' + direction);
 }
 
 function stopCar() {
-  fetch('/car/stop');
+  fetch('/move/stop');
+}
+
+function setSeed (event) {
+  var speed = $(event.target).val();
+  fetch('/speed/' + speed);
 }

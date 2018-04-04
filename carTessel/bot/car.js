@@ -10,7 +10,7 @@ class Car {
     this.speed = 255 * 0.8;
 
     // set 50% speed for turn
-    this.turnSpeed = 255 * 0.5;
+    this.turnSpeed = 255 * 0.8;
   }
 
   forward() {
@@ -24,13 +24,13 @@ class Car {
   }
 
   left() {
-    this.motorL.reverse(this.turnSpeed);
-    this.motorR.forward(this.turnSpeed);
+    this.motorL.reverse(this.speed);
+    this.motorR.forward(this.speed);
   }
 
   right() {
-    this.motorL.forward(this.turnSpeed);
-    this.motorR.reverse(this.turnSpeed);
+    this.motorL.forward(this.speed);
+    this.motorR.reverse(this.speed);
   }
 
   stop() {
@@ -38,6 +38,9 @@ class Car {
     this.motorR.stop();
   }
 
+  setSpeed(speed) {
+    this.speed = 255 * speed / 100;
+  }
 }
 
 module.exports = Car;

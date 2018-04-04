@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
 const ledsEndPoint = require('./ledsEndPoint.js');
-const carEndPoint = require('./carEndPoint.js');
+const moveEndPoint = require('./moveEndPoint.js');
+const speedEndPoint = require('./speedEndPoint.js');
 const Tessel2Factory = require('../bot/tessel2Factory.js');
 
 // Setup bot
@@ -22,6 +23,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get(/leds/, ledsEndPoint);
-app.get(/car/, (req, res) => carEndPoint(req, res, carBot));
+app.get(/move/, (req, res) => moveEndPoint(req, res, carBot));
+app.get(/speed/, (req, res) => speedEndPoint(req, res, carBot));
 
 app.listen(80);

@@ -1,6 +1,6 @@
 'use strict';
 
-function carEndPoint(req, res, car) {
+function moveEndPoint(req, res, car) {
   const url = req.url;
   const action = url.split('/').pop();
 
@@ -9,7 +9,7 @@ function carEndPoint(req, res, car) {
     'reverse': () => car.reverse(),
     'left': () => car.left(),
     'right': () => car.right(),
-    'stop': () => car.stop(),
+    'stop': () => car.stop()
   };
 
   if (commands[action]) {
@@ -20,4 +20,4 @@ function carEndPoint(req, res, car) {
   }
 }
 
-module.exports = carEndPoint;
+module.exports = moveEndPoint;
