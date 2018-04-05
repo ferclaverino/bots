@@ -10,11 +10,7 @@
 </head>
 <body>
   <div data-role="page">
-    <div data-role="header">
-      <h1>Bot</h1>
-    </div>
     <div role="main" class="ui-content">
-      <h2>Dirección</h2>
       <div class="ui-grid-solo">
         <div class="ui-block-a"><button class="ui-btn ui-icon-arrow-u ui-btn-icon-left car-button" data-direction="forward">Adelante</button></div>
       </div>
@@ -29,8 +25,7 @@
         <label for="speed">Velocidad:</label>
         <input type="range" name="speed" id="speed" data-highlight="true" min="0" max="100" value="100">
       </form>
-      <h2>Luces</h2>
-      <div class="ui-grid-a ui-responsive">
+      <!-- <div class="ui-grid-a ui-responsive">
         <div class="ui-block-a">
           <button class="ui-btn led-button" data-led="2">Verde</button>
           Status: <span class="led-status"></span>
@@ -38,6 +33,21 @@
         <div class="ui-block-b">
           <button class=" ui-btn led-button" data-led="3">Azul</button>
           Status: <span class="led-status"></span>
+        </div>
+      </div> -->
+      <div data-role="tabs" id="tabs">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#picture" data-ajax="false">Foto</a></li>
+            <li><a href="#video" data-ajax="false">Video</a></li>
+          </ul>
+        </div>
+        <div id="picture" class="ui-body-d ui-content">
+          <button class="ui-btn ui-mini">Capturar</button>
+          <img>
+        </div>
+        <div id="video">
+          <img src="/stream">
         </div>
       </div>
     </div>

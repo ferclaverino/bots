@@ -5,6 +5,7 @@ function init() {
   $('.car-button').bind('vmousedown', moveCar);
   $('.car-button').bind('vmouseup', stopCar);
   $('#speed').bind('change', setSeed);
+  $('#picture button').bind('click', capture);
 }
 
 function toggleLed (event) {
@@ -32,4 +33,8 @@ function stopCar() {
 function setSeed (event) {
   var speed = $(event.target).val();
   fetch('/speed/' + speed);
+}
+
+function capture (event) {
+  $("#picture img").attr("src", "/capture?timestamp=" + new Date().getTime());
 }

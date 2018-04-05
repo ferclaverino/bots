@@ -1,6 +1,7 @@
 'use strict';
 
 const five = require('johnny-five');
+const av = require('tessel-av');
 const Board = five.Board;
 const Motor = five.Motor;
 const Tessel = require('tessel-io');
@@ -27,6 +28,15 @@ class Tessel2Factory {
     const motorR = this.buildMotorR();
     return new Car(motorL, motorR);
   }
+
+  buildCamera() {
+    return new av.Camera({
+      // fps: 15,
+      dimensions: "320x240",
+      quality: 50,
+    });
+  }
+
 }
 
 module.exports = Tessel2Factory;
